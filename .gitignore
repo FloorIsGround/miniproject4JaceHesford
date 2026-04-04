@@ -9,8 +9,8 @@ wheels/
 # Virtual environments
 .venv
 
-# Flask instance folder (contains SQLite DB and local config)
-instance/
+# Django
+db.sqlite3
 
 
 # other

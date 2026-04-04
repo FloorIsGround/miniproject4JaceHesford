@@ -20,6 +20,7 @@
 # python manage.py migrate (this will apply the migrations)
 # python manage.py createsuperuser (this will create the administrator login for your /admin side of your project)
 
+
 def main():
     print("Hello from miniproject4!")
 

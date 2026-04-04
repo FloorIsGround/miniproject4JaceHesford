@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Kansas Bill Tracker — Home{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8">
+        <h1>Kansas Bill Tracker</h1>
+        <p class="lead">Browse and discuss bills from the current Kansas legislative session.</p>
+        <a href="{% url 'bills:bill_list' %}" class="btn btn-primary">View All Bills</a>
+    </div>
+</div>
+{% endblock %}
