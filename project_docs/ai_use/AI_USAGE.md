@@ -18,3 +18,10 @@
 - Task: Created data models (commit 2) — wrote Bill, BillAnalysis, Comment, and Vote models in bills/models.py, generated and applied initial migration (0001_initial)
 - Commits: 4ad284c
 - Raw log archive: project_docs\raw_log\claude_3.md
+
+## 2026-04-04
+- Tool: Claude Code (VS Code extension)
+- Model: claude-sonnet-4-6
+- Task: KLISS API integration and bill views (commit 3) — fleshed out services.py with upsert/cache logic (get_bill_list, get_bill, 1-hour TTL), implemented home/bill_list/bill_detail views, built bill_list.html (search bar, status badges), bill_detail.html (metadata, analysis cards, comment scaffold), and updated home.html to show recently cached bills
+- Commits: 303e303
+- Raw log archive: project_docs\raw_log\claude_4.md
