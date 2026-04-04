@@ -25,3 +25,10 @@
 - Task: KLISS API integration and bill views (commit 3) — fleshed out services.py with upsert/cache logic (get_bill_list, get_bill, 1-hour TTL), implemented home/bill_list/bill_detail views, built bill_list.html (search bar, status badges), bill_detail.html (metadata, analysis cards, comment scaffold), and updated home.html to show recently cached bills
 - Commits: 303e303
 - Raw log archive: project_docs\raw_log\claude_4.md
+
+## 2026-04-04
+- Tool: Claude Code (VS Code extension)
+- Model: claude-sonnet-4-6
+- Task: Auth implementation (commit 4) — created accounts/forms.py (RegisterForm), fleshed out register and profile views, replaced stub templates for register/login/profile with crispy forms and functional UI; all auth flows manually tested and verified
+- Commits: 7bff478
+- Raw log archive: project_docs\raw_log\claude_5.md
