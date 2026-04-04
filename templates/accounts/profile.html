@@ -3,6 +3,30 @@
 {% block title %}Profile — Kansas Bill Tracker{% endblock %}
 
 {% block content %}
-<h2>Profile</h2>
-<p class="text-muted">Profile page coming soon.</p>
+<h2 class="mb-1">{{ user.username }}</h2>
+<p class="text-muted mb-4">Member since {{ user.date_joined|date:"N j, Y" }}</p>
+
+<h4>Your Comments</h4>
+{% if comments %}
+    <ul class="list-group">
+        {% for comment in comments %}
+            <li class="list-group-item">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <a href="{% url 'bills:bill_detail' comment.bill.bill_number %}" class="fw-semibold">
+                            {{ comment.bill.bill_number }}
+                        </a>
+                        {% if comment.bill.short_title %}
+                            <span class="text-muted">— {{ comment.bill.short_title }}</span>
+                        {% endif %}
+                        <p class="mb-0 mt-1">{{ comment.body }}</p>
+                    </div>
+                    <small class="text-muted ms-3 text-nowrap">{{ comment.created_at|date:"N j, Y" }}</small>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p class="text-muted">You haven't left any comments yet. <a href="{% url 'bills:bill_list' %}">Browse bills</a> to get started.</p>
+{% endif %}
 {% endblock %}
