@@ -1,13 +1,36 @@
 {% extends "base.html" %}
 
-{% block title %}Kansas Bill Tracker — Home{% endblock %}
+{% block title %}Kansas Bill Tracker{% endblock %}
 
 {% block content %}
 <div class="row">
     <div class="col-lg-8">
         <h1>Kansas Bill Tracker</h1>
-        <p class="lead">Browse and discuss bills from the current Kansas legislative session.</p>
-        <a href="{% url 'bills:bill_list' %}" class="btn btn-primary">View All Bills</a>
+        <p class="lead">
+            Browse and discuss bills from the current Kansas legislative session.
+            Data is pulled live from the official KLISS API.
+        </p>
+        <a href="{% url 'bills:bill_list' %}" class="btn btn-primary mb-4">View All Bills</a>
+
+        {% if recent_bills %}
+            <h2 class="h5 mb-3">Recently Viewed</h2>
+            <div class="list-group">
+                {% for bill in recent_bills %}
+                    <a href="{% url 'bills:bill_detail' bill.bill_number %}"
+                       class="list-group-item list-group-item-action">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <span class="fw-bold me-2">{{ bill.bill_number }}</span>
+                                <span>{{ bill.short_title|default:"No title" }}</span>
+                            </div>
+                            {% if bill.status %}
+                                <span class="badge bg-secondary">{{ bill.status }}</span>
+                            {% endif %}
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

@@ -1,8 +1,88 @@
 {% extends "base.html" %}
 
-{% block title %}Bill Detail — Kansas Bill Tracker{% endblock %}
+{% block title %}{{ bill.bill_number }} — Kansas Bill Tracker{% endblock %}
 
 {% block content %}
-<h1>Bill Detail</h1>
-<p class="text-muted">Bill detail coming soon.</p>
+<nav aria-label="breadcrumb" class="mb-3">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'bills:bill_list' %}">Bills</a></li>
+        <li class="breadcrumb-item active">{{ bill.bill_number }}</li>
+    </ol>
+</nav>
+
+<div class="mb-4">
+    <h1 class="h2">
+        {{ bill.bill_number }}
+        {% if bill.status %}
+            <span class="badge bg-secondary fs-6 align-middle">{{ bill.status }}</span>
+        {% endif %}
+    </h1>
+    {% if bill.short_title %}
+        <p class="lead mb-1">{{ bill.short_title }}</p>
+    {% endif %}
+    {% if bill.long_title and bill.long_title != bill.short_title %}
+        <p class="text-muted">{{ bill.long_title }}</p>
+    {% endif %}
+</div>
+
+<div class="row mb-4">
+    {% if bill.sponsors %}
+        <div class="col-md-6 mb-2">
+            <strong>Sponsors:</strong> {{ bill.sponsors }}
+        </div>
+    {% endif %}
+    {% if bill.effective_date %}
+        <div class="col-md-6 mb-2">
+            <strong>Effective Date:</strong> {{ bill.effective_date }}
+        </div>
+    {% endif %}
+    {% if bill.last_fetched %}
+        <div class="col-12">
+            <small class="text-muted">Last updated: {{ bill.last_fetched|date:"N j, Y, g:i a" }}</small>
+        </div>
+    {% endif %}
+</div>
+
+{% if analyses %}
+    <section class="mb-5">
+        <h2 class="h4 mb-3">Analysis</h2>
+        {% for analysis in analyses %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <p class="card-text" style="white-space: pre-wrap;">{{ analysis.body }}</p>
+                    <small class="text-muted">
+                        By {{ analysis.created_by.username|default:"Staff" }}
+                        on {{ analysis.created_at|date:"N j, Y" }}
+                    </small>
+                </div>
+            </div>
+        {% endfor %}
+    </section>
+{% endif %}
+
+<section>
+    <h2 class="h4 mb-3">Comments <span class="badge bg-light text-dark">{{ bill.comments.count }}</span></h2>
+
+    {% if user.is_authenticated %}
+        <p class="text-muted"><em>Comment form coming soon.</em></p>
+    {% else %}
+        <p>
+            <a href="{% url 'accounts:login' %}?next={{ request.path }}">Log in</a>
+            to leave a comment.
+        </p>
+    {% endif %}
+
+    {% for comment in bill.comments.all %}
+        <div class="card mb-2">
+            <div class="card-body py-2">
+                <p class="mb-1">{{ comment.body }}</p>
+                <small class="text-muted">
+                    {{ comment.author.username }} — {{ comment.created_at|date:"N j, Y" }}
+                </small>
+            </div>
+        </div>
+    {% empty %}
+        <p class="text-muted">No comments yet.</p>
+    {% endfor %}
+</section>
 {% endblock %}
