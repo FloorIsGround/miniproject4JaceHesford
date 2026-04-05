@@ -57,9 +57,11 @@ uv pip install -r requirements.txt
 
 ```
 # Python
+python manage.py makemigrations
 python manage.py migrate
 
 # uv package manager
+uv run manage.py makemigrations
 uv run manage.py migrate
 ```
 
