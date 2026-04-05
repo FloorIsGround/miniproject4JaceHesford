@@ -39,3 +39,10 @@
 - Task: Interaction system (commit 5) — added add_comment, delete_comment, and vote views; wired URL patterns; updated bill_detail.html with real comment form, upvote/downvote buttons with live tally, and per-comment delete buttons (author + staff only); all 9 manual test cases verified
 - Commits: ddeebbf
 - Raw log archive: project_docs\raw_log\claude_6.md
+
+## 2026-04-04
+- Tool: Claude Code (VS Code extension)
+- Model: claude-sonnet-4-6
+- Task: Admin panel customization (commit 6) — registered Bill, BillAnalysis, Comment, and Vote models in bills/admin.py; BillAnalysis inline on Bill edit page with auto-set created_by; Comment list with bill filter and read-only fields; Vote list fully read-only with add/change permissions disabled; all features manually tested and verified
+- Commits: 08ba01e
+- Raw log archive: project_docs\raw_log\claude_7.md
