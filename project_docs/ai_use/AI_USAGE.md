@@ -32,3 +32,10 @@
 - Task: Auth implementation (commit 4) — created accounts/forms.py (RegisterForm), fleshed out register and profile views, replaced stub templates for register/login/profile with crispy forms and functional UI; all auth flows manually tested and verified
 - Commits: 7bff478
 - Raw log archive: project_docs\raw_log\claude_5.md
+
+## 2026-04-04
+- Tool: Claude Code (VS Code extension)
+- Model: claude-sonnet-4-6
+- Task: Interaction system (commit 5) — added add_comment, delete_comment, and vote views; wired URL patterns; updated bill_detail.html with real comment form, upvote/downvote buttons with live tally, and per-comment delete buttons (author + staff only); all 9 manual test cases verified
+- Commits: ddeebbf
+- Raw log archive: project_docs\raw_log\claude_6.md
