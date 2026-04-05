@@ -46,3 +46,10 @@
 - Task: Admin panel customization (commit 6) — registered Bill, BillAnalysis, Comment, and Vote models in bills/admin.py; BillAnalysis inline on Bill edit page with auto-set created_by; Comment list with bill filter and read-only fields; Vote list fully read-only with add/change permissions disabled; all features manually tested and verified
 - Commits: 08ba01e
 - Raw log archive: project_docs\raw_log\claude_7.md
+
+## 2026-04-04
+- Tool: Claude Code (VS Code extension)
+- Model: claude-sonnet-4-6
+- Task: Polish pass (commit 7) — rewrote README.md for miniproject4 (Django, correct setup instructions, pages table, updated acknowledgments), replaced native browser confirm dialog on comment delete with a Bootstrap 5 modal
+- Commits: e970f4d
+- Raw log archive: project_docs\raw_log\claude_8.md
