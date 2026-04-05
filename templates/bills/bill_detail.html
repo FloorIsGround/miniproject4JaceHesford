@@ -60,25 +60,69 @@
     </section>
 {% endif %}
 
+<section class="mb-4">
+    <div class="d-flex align-items-center gap-3 mb-2">
+        <h2 class="h4 mb-0">Community Vote</h2>
+        <span class="fs-5 fw-semibold {% if vote_total > 0 %}text-success{% elif vote_total < 0 %}text-danger{% else %}text-muted{% endif %}">
+            {{ vote_total|stringformat:"+d" }}
+        </span>
+    </div>
+    {% if user.is_authenticated %}
+        <form method="post" action="{% url 'bills:vote' bill.bill_number %}" class="d-inline">
+            {% csrf_token %}
+            <button type="submit" name="value" value="1"
+                class="btn btn-sm {% if user_vote == 1 %}btn-success{% else %}btn-outline-success{% endif %}">
+                ▲ Upvote
+            </button>
+            <button type="submit" name="value" value="-1"
+                class="btn btn-sm {% if user_vote == -1 %}btn-danger{% else %}btn-outline-danger{% endif %}">
+                ▼ Downvote
+            </button>
+        </form>
+        <small class="text-muted ms-2">
+            {% if user_vote == 1 %}You upvoted this bill.
+            {% elif user_vote == -1 %}You downvoted this bill.
+            {% else %}Cast your vote above.{% endif %}
+        </small>
+    {% else %}
+        <p><a href="{% url 'accounts:login' %}?next={{ request.path }}">Log in</a> to vote.</p>
+    {% endif %}
+</section>
+
 <section>
-    <h2 class="h4 mb-3">Comments <span class="badge bg-light text-dark">{{ bill.comments.count }}</span></h2>
+    <h2 class="h4 mb-3">Comments <span class="badge bg-light text-dark">{{ comments|length }}</span></h2>
 
     {% if user.is_authenticated %}
-        <p class="text-muted"><em>Comment form coming soon.</em></p>
+        <form method="post" action="{% url 'bills:add_comment' bill.bill_number %}" class="mb-4">
+            {% csrf_token %}
+            <div class="mb-2">
+                <textarea name="body" class="form-control" rows="3" placeholder="Leave a comment…" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm">Post Comment</button>
+        </form>
     {% else %}
-        <p>
+        <p class="mb-4">
             <a href="{% url 'accounts:login' %}?next={{ request.path }}">Log in</a>
             to leave a comment.
         </p>
     {% endif %}
 
-    {% for comment in bill.comments.all %}
+    {% for comment in comments %}
         <div class="card mb-2">
             <div class="card-body py-2">
                 <p class="mb-1">{{ comment.body }}</p>
-                <small class="text-muted">
-                    {{ comment.author.username }} — {{ comment.created_at|date:"N j, Y" }}
-                </small>
+                <div class="d-flex justify-content-between align-items-center">
+                    <small class="text-muted">
+                        {{ comment.author.username }} — {{ comment.created_at|date:"N j, Y" }}
+                    </small>
+                    {% if user == comment.author or user.is_staff %}
+                        <form method="post" action="{% url 'bills:delete_comment' bill.bill_number comment.pk %}"
+                              class="d-inline" onsubmit="return confirm('Delete this comment?');">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-link btn-sm text-danger p-0">Delete</button>
+                        </form>
+                    {% endif %}
+                </div>
             </div>
         </div>
     {% empty %}
